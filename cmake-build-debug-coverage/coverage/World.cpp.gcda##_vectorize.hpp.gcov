@@ -1,0 +1,172 @@
+        -:    0:Source:/home/dihydromonoxide/vcpkg/installed/x64-linux/include/glm/detail/_vectorize.hpp
+        -:    0:Graph:/home/dihydromonoxide/CLionProjects/Raytracer/cmake-build-debug-coverage/CMakeFiles/Raytracer.dir/src/World.cpp.gcno
+        -:    0:Data:/home/dihydromonoxide/CLionProjects/Raytracer/cmake-build-debug-coverage/CMakeFiles/Raytracer.dir/src/World.cpp.gcda
+        -:    0:Runs:1
+        -:    1:#pragma once
+        -:    2:
+        -:    3:namespace glm{
+        -:    4:namespace detail
+        -:    5:{
+        -:    6:	template<template<length_t L, typename T, qualifier Q> class vec, length_t L, typename R, typename T, qualifier Q>
+        -:    7:	struct functor1{};
+        -:    8:
+        -:    9:	template<template<length_t L, typename T, qualifier Q> class vec, typename R, typename T, qualifier Q>
+        -:   10:	struct functor1<vec, 1, R, T, Q>
+        -:   11:	{
+        -:   12:		GLM_FUNC_QUALIFIER GLM_CONSTEXPR static vec<1, R, Q> call(R (*Func) (T x), vec<1, T, Q> const& v)
+        -:   13:		{
+        -:   14:			return vec<1, R, Q>(Func(v.x));
+        -:   15:		}
+        -:   16:	};
+        -:   17:
+        -:   18:	template<template<length_t L, typename T, qualifier Q> class vec, typename R, typename T, qualifier Q>
+        -:   19:	struct functor1<vec, 2, R, T, Q>
+        -:   20:	{
+        -:   21:		GLM_FUNC_QUALIFIER GLM_CONSTEXPR static vec<2, R, Q> call(R (*Func) (T x), vec<2, T, Q> const& v)
+        -:   22:		{
+        -:   23:			return vec<2, R, Q>(Func(v.x), Func(v.y));
+        -:   24:		}
+        -:   25:	};
+        -:   26:
+        -:   27:	template<template<length_t L, typename T, qualifier Q> class vec, typename R, typename T, qualifier Q>
+        -:   28:	struct functor1<vec, 3, R, T, Q>
+        -:   29:	{
+        -:   30:		GLM_FUNC_QUALIFIER GLM_CONSTEXPR static vec<3, R, Q> call(R (*Func) (T x), vec<3, T, Q> const& v)
+        -:   31:		{
+        -:   32:			return vec<3, R, Q>(Func(v.x), Func(v.y), Func(v.z));
+        -:   33:		}
+        -:   34:	};
+        -:   35:
+        -:   36:	template<template<length_t L, typename T, qualifier Q> class vec, typename R, typename T, qualifier Q>
+        -:   37:	struct functor1<vec, 4, R, T, Q>
+        -:   38:	{
+        -:   39:		GLM_FUNC_QUALIFIER GLM_CONSTEXPR static vec<4, R, Q> call(R (*Func) (T x), vec<4, T, Q> const& v)
+        -:   40:		{
+        -:   41:			return vec<4, R, Q>(Func(v.x), Func(v.y), Func(v.z), Func(v.w));
+        -:   42:		}
+        -:   43:	};
+        -:   44:
+        -:   45:	template<template<length_t L, typename T, qualifier Q> class vec, length_t L, typename T, qualifier Q>
+        -:   46:	struct functor2{};
+        -:   47:
+        -:   48:	template<template<length_t L, typename T, qualifier Q> class vec, typename T, qualifier Q>
+        -:   49:	struct functor2<vec, 1, T, Q>
+        -:   50:	{
+        -:   51:		GLM_FUNC_QUALIFIER static vec<1, T, Q> call(T (*Func) (T x, T y), vec<1, T, Q> const& a, vec<1, T, Q> const& b)
+        -:   52:		{
+        -:   53:			return vec<1, T, Q>(Func(a.x, b.x));
+        -:   54:		}
+        -:   55:	};
+        -:   56:
+        -:   57:	template<template<length_t L, typename T, qualifier Q> class vec, typename T, qualifier Q>
+        -:   58:	struct functor2<vec, 2, T, Q>
+        -:   59:	{
+        -:   60:		GLM_FUNC_QUALIFIER static vec<2, T, Q> call(T (*Func) (T x, T y), vec<2, T, Q> const& a, vec<2, T, Q> const& b)
+        -:   61:		{
+        -:   62:			return vec<2, T, Q>(Func(a.x, b.x), Func(a.y, b.y));
+        -:   63:		}
+        -:   64:	};
+        -:   65:
+        -:   66:	template<template<length_t L, typename T, qualifier Q> class vec, typename T, qualifier Q>
+        -:   67:	struct functor2<vec, 3, T, Q>
+        -:   68:	{
+function _ZN3glm6detail8functor2INS_3vecELi3EfLNS_9qualifierE0EE4callEPFfffERKNS2_ILi3EfLS3_0EEES9_ called 524288 returned 100% blocks executed 100%
+   524288:   69:		GLM_FUNC_QUALIFIER static vec<3, T, Q> call(T (*Func) (T x, T y), vec<3, T, Q> const& a, vec<3, T, Q> const& b)
+        -:   70:		{
+   524288:   71:			return vec<3, T, Q>(Func(a.x, b.x), Func(a.y, b.y), Func(a.z, b.z));
+   524288:   71-block  0
+call    0 returned 524288
+call    1 returned 524288
+call    2 returned 524288
+call    3 returned 524288
+        -:   72:		}
+        -:   73:	};
+        -:   74:
+        -:   75:	template<template<length_t L, typename T, qualifier Q> class vec, typename T, qualifier Q>
+        -:   76:	struct functor2<vec, 4, T, Q>
+        -:   77:	{
+        -:   78:		GLM_FUNC_QUALIFIER static vec<4, T, Q> call(T (*Func) (T x, T y), vec<4, T, Q> const& a, vec<4, T, Q> const& b)
+        -:   79:		{
+        -:   80:			return vec<4, T, Q>(Func(a.x, b.x), Func(a.y, b.y), Func(a.z, b.z), Func(a.w, b.w));
+        -:   81:		}
+        -:   82:	};
+        -:   83:
+        -:   84:	template<template<length_t L, typename T, qualifier Q> class vec, length_t L, typename T, qualifier Q>
+        -:   85:	struct functor2_vec_sca{};
+        -:   86:
+        -:   87:	template<template<length_t L, typename T, qualifier Q> class vec, typename T, qualifier Q>
+        -:   88:	struct functor2_vec_sca<vec, 1, T, Q>
+        -:   89:	{
+        -:   90:		GLM_FUNC_QUALIFIER static vec<1, T, Q> call(T (*Func) (T x, T y), vec<1, T, Q> const& a, T b)
+        -:   91:		{
+        -:   92:			return vec<1, T, Q>(Func(a.x, b));
+        -:   93:		}
+        -:   94:	};
+        -:   95:
+        -:   96:	template<template<length_t L, typename T, qualifier Q> class vec, typename T, qualifier Q>
+        -:   97:	struct functor2_vec_sca<vec, 2, T, Q>
+        -:   98:	{
+        -:   99:		GLM_FUNC_QUALIFIER static vec<2, T, Q> call(T (*Func) (T x, T y), vec<2, T, Q> const& a, T b)
+        -:  100:		{
+        -:  101:			return vec<2, T, Q>(Func(a.x, b), Func(a.y, b));
+        -:  102:		}
+        -:  103:	};
+        -:  104:
+        -:  105:	template<template<length_t L, typename T, qualifier Q> class vec, typename T, qualifier Q>
+        -:  106:	struct functor2_vec_sca<vec, 3, T, Q>
+        -:  107:	{
+        -:  108:		GLM_FUNC_QUALIFIER static vec<3, T, Q> call(T (*Func) (T x, T y), vec<3, T, Q> const& a, T b)
+        -:  109:		{
+        -:  110:			return vec<3, T, Q>(Func(a.x, b), Func(a.y, b), Func(a.z, b));
+        -:  111:		}
+        -:  112:	};
+        -:  113:
+        -:  114:	template<template<length_t L, typename T, qualifier Q> class vec, typename T, qualifier Q>
+        -:  115:	struct functor2_vec_sca<vec, 4, T, Q>
+        -:  116:	{
+        -:  117:		GLM_FUNC_QUALIFIER static vec<4, T, Q> call(T (*Func) (T x, T y), vec<4, T, Q> const& a, T b)
+        -:  118:		{
+        -:  119:			return vec<4, T, Q>(Func(a.x, b), Func(a.y, b), Func(a.z, b), Func(a.w, b));
+        -:  120:		}
+        -:  121:	};
+        -:  122:
+        -:  123:	template<length_t L, typename T, qualifier Q>
+        -:  124:	struct functor2_vec_int {};
+        -:  125:
+        -:  126:	template<typename T, qualifier Q>
+        -:  127:	struct functor2_vec_int<1, T, Q>
+        -:  128:	{
+        -:  129:		GLM_FUNC_QUALIFIER static vec<1, int, Q> call(int (*Func) (T x, int y), vec<1, T, Q> const& a, vec<1, int, Q> const& b)
+        -:  130:		{
+        -:  131:			return vec<1, int, Q>(Func(a.x, b.x));
+        -:  132:		}
+        -:  133:	};
+        -:  134:
+        -:  135:	template<typename T, qualifier Q>
+        -:  136:	struct functor2_vec_int<2, T, Q>
+        -:  137:	{
+        -:  138:		GLM_FUNC_QUALIFIER static vec<2, int, Q> call(int (*Func) (T x, int y), vec<2, T, Q> const& a, vec<2, int, Q> const& b)
+        -:  139:		{
+        -:  140:			return vec<2, int, Q>(Func(a.x, b.x), Func(a.y, b.y));
+        -:  141:		}
+        -:  142:	};
+        -:  143:
+        -:  144:	template<typename T, qualifier Q>
+        -:  145:	struct functor2_vec_int<3, T, Q>
+        -:  146:	{
+        -:  147:		GLM_FUNC_QUALIFIER static vec<3, int, Q> call(int (*Func) (T x, int y), vec<3, T, Q> const& a, vec<3, int, Q> const& b)
+        -:  148:		{
+        -:  149:			return vec<3, int, Q>(Func(a.x, b.x), Func(a.y, b.y), Func(a.z, b.z));
+        -:  150:		}
+        -:  151:	};
+        -:  152:
+        -:  153:	template<typename T, qualifier Q>
+        -:  154:	struct functor2_vec_int<4, T, Q>
+        -:  155:	{
+        -:  156:		GLM_FUNC_QUALIFIER static vec<4, int, Q> call(int (*Func) (T x, int y), vec<4, T, Q> const& a, vec<4, int, Q> const& b)
+        -:  157:		{
+        -:  158:			return vec<4, int, Q>(Func(a.x, b.x), Func(a.y, b.y), Func(a.z, b.z), Func(a.w, b.w));
+        -:  159:		}
+        -:  160:	};
+        -:  161:}//namespace detail
+        -:  162:}//namespace glm

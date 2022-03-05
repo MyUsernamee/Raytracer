@@ -1,0 +1,25 @@
+        -:    0:Source:/home/dihydromonoxide/CLionProjects/Raytracer/src/simplerandom.h
+        -:    0:Graph:/home/dihydromonoxide/CLionProjects/Raytracer/cmake-build-debug-coverage/CMakeFiles/Raytracer.dir/src/Material.cpp.gcno
+        -:    0:Data:/home/dihydromonoxide/CLionProjects/Raytracer/cmake-build-debug-coverage/CMakeFiles/Raytracer.dir/src/Material.cpp.gcda
+        -:    0:Runs:1
+        -:    1://
+        -:    2:// Created by dihydromonoxide on 2/28/22.
+        -:    3://
+        -:    4:
+        -:    5:#ifndef RAYTRACER_SIMPLERANDOM_H
+        -:    6:#define RAYTRACER_SIMPLERANDOM_H
+        -:    7:
+        -:    8:#include <cstdlib>
+        -:    9:
+        -:   10:namespace Raytracer {
+        -:   11:
+function _ZN9Raytracer12random_floatEv called 5777544 returned 100% blocks executed 100%
+  5777544:   12:    float random_float(){
+  5777544:   13:        return (float)rand() / (float)RAND_MAX;
+  5777544:   13-block  0
+call    0 returned 5777544
+        -:   14:    }
+        -:   15:
+        -:   16:}
+        -:   17:
+        -:   18:#endif //RAYTRACER_SIMPLERANDOM_H

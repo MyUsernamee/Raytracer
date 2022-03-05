@@ -1,0 +1,4 @@
+/home/dihydromonoxide/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/213.6777.58/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_MAKE_PROGRAM=/home/dihydromonoxide/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/213.6777.58/bin/ninja/linux/ninja -DCMAKE_TOOLCHAIN_FILE=~/vcpkg/scripts/buildsystems/vcpkg.cmake -G Ninja /home/dihydromonoxide/CLionProjects/Raytracer
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/dihydromonoxide/CLionProjects/Raytracer/cmake-build-release

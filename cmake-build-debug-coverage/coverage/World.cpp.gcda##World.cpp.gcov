@@ -1,0 +1,476 @@
+        -:    0:Source:/home/dihydromonoxide/CLionProjects/Raytracer/src/World.cpp
+        -:    0:Graph:/home/dihydromonoxide/CLionProjects/Raytracer/cmake-build-debug-coverage/CMakeFiles/Raytracer.dir/src/World.cpp.gcno
+        -:    0:Data:/home/dihydromonoxide/CLionProjects/Raytracer/cmake-build-debug-coverage/CMakeFiles/Raytracer.dir/src/World.cpp.gcda
+        -:    0:Runs:1
+        -:    1://
+        -:    2:// Created by dihydromonoxide on 2/27/22.
+        -:    3://
+        -:    4:
+        -:    5:#include <cstdio>
+        -:    6:#include "World.h"
+        -:    7:
+        -:    8:namespace Raytracer {
+        -:    9:
+function _ZN9Raytracer5WorldC2Ev called 1 returned 100% blocks executed 73%
+        1:   10:    Raytracer::World::World() {
+        1:   10-block  0
+call    0 returned 1
+    $$$$$:   10-block  1
+call    1 never executed
+        1:   11:        this->objects = std::vector<RaytracedObject *>();
+call    0 returned 1
+call    1 returned 1
+call    2 returned 1
+        1:   12:        this->cameraMatrix = glm::lookAt(glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 0.0, -1.0), glm::vec3(0.0, 1.0, 0.0));
+call    0 returned 1
+call    1 returned 1
+call    2 returned 1
+call    3 returned 1
+branch  4 taken 1 (fallthrough)
+branch  5 taken 0 (throw)
+    $$$$$:   12-block  0
+    $$$$$:   12-block  1
+    $$$$$:   12-block  2
+        1:   13:        this->cameraPosition = glm::vec4(0.0, 0.0, -1.0, 0.0);
+        1:   13-block  0
+call    0 returned 1
+        1:   14:    }
+        -:   15:
+function _ZN9Raytracer5WorldC2ESt6vectorIPNS_15RaytracedObjectESaIS3_EE called 0 returned 0% blocks executed 0%
+    #####:   16:    Raytracer::World::World(std::vector<RaytracedObject *> objects) {
+    %%%%%:   16-block  0
+call    0 never executed
+    $$$$$:   16-block  1
+call    1 never executed
+    #####:   17:        this->objects = objects;
+call    0 never executed
+branch  1 never executed
+branch  2 never executed
+    #####:   18:        this->cameraMatrix = glm::lookAt(glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 0.0, -1.0), glm::vec3(0.0, 1.0, 0.0));
+    %%%%%:   18-block  0
+call    0 never executed
+call    1 never executed
+call    2 never executed
+call    3 never executed
+branch  4 never executed
+branch  5 never executed
+    $$$$$:   18-block  1
+    $$$$$:   18-block  2
+    $$$$$:   18-block  3
+    #####:   19:        this->cameraPosition = glm::vec4(0.0, 0.0, -1.0, 0.0);
+    %%%%%:   19-block  0
+call    0 never executed
+    #####:   20:    }
+        -:   21:
+function _ZN9Raytracer5WorldD2Ev called 0 returned 0% blocks executed 0%
+    #####:   22:    Raytracer::World::~World() {
+    %%%%%:   22-block  0
+call    0 never executed
+    #####:   23:        for (auto object: this->objects) {
+    %%%%%:   23-block  0
+call    0 never executed
+call    1 never executed
+    %%%%%:   23-block  1
+call    2 never executed
+branch  3 never executed
+branch  4 never executed
+    %%%%%:   23-block  2
+call    5 never executed
+    %%%%%:   23-block  3
+call    6 never executed
+    #####:   24:            delete object;
+branch  0 never executed
+branch  1 never executed
+    %%%%%:   24-block  0
+call    2 never executed
+        -:   25:        }
+    #####:   26:    }
+        -:   27:
+function _ZN9Raytracer5World6renderEiii called 1 returned 100% blocks executed 83%
+        1:   28:    glm::vec3** Raytracer::World::render(int width, int height, int samples) {
+        -:   29:
+       1*:   30:        auto** pixels = new glm::vec3*[width];
+        1:   30-block  0
+branch  0 taken 1 (fallthrough)
+branch  1 taken 0
+        1:   30-block  1
+    %%%%%:   30-block  2
+call    2 never executed
+        1:   30-block  3
+call    3 returned 1
+        -:   31:
+      513:   32:        for (int i = 0; i < width; i++) {
+      513:   32-block  0
+branch  0 taken 512 (fallthrough)
+branch  1 taken 1
+      512:   32-block  1
+  262656*:   33:            pixels[i] = new glm::vec3[height];
+      512:   33-block  0
+branch  0 taken 512 (fallthrough)
+branch  1 taken 0
+      512:   33-block  1
+    %%%%%:   33-block  2
+call    2 never executed
+      512:   33-block  3
+call    3 returned 512
+   262656:   33-block  4
+branch  4 taken 262144 (fallthrough)
+branch  5 taken 512
+   262144:   33-block  5
+   262656:   34:            for (int j = 0; j < height; j++) {
+      512:   34-block  0
+   262656:   34-block  1
+branch  0 taken 262144 (fallthrough)
+branch  1 taken 512
+   262144:   35:                pixels[i][j] = glm::vec3(0.0f, 0.0f, 0.0f);
+   262144:   35-block  0
+call    0 returned 262144
+        -:   36:            }
+        -:   37:        }
+        -:   38:
+      513:   39:        for (int i = 0; i < width; i++) {
+        1:   39-block  0
+      513:   39-block  1
+branch  0 taken 512 (fallthrough)
+branch  1 taken 1
+      512:   39-block  2
+   262656:   40:            for (int j = 0; j < height; j++) {
+      512:   40-block  0
+   262656:   40-block  1
+branch  0 taken 262144 (fallthrough)
+branch  1 taken 512
+  2359296:   41:                for (int k = 0; k < samples; k++) {
+   262144:   41-block  0
+  2359296:   41-block  1
+branch  0 taken 2097152 (fallthrough)
+branch  1 taken 262144
+        -:   42:
+  2097152:   43:                    float u = (float)i / (float)width * 2.0 - 1.0;
+  2097152:   44:                    float v = (float)j / (float)height * 2.0 - 1.0;
+        -:   45:
+  2097152:   46:                    glm::vec3 direction = glm::normalize(glm::vec3(u, v, 1.0f));
+  2097152:   46-block  0
+call    0 returned 2097152
+call    1 returned 2097152
+branch  2 taken 2097152 (fallthrough)
+branch  3 taken 0 (throw)
+    $$$$$:   46-block  1
+  2097152:   47:                    glm::vec3 worldDirection = this->cameraMatrix * glm::vec4(direction, 0.0);
+  2097152:   47-block  0
+call    0 returned 2097152
+call    1 returned 2097152
+branch  2 taken 2097152 (fallthrough)
+branch  3 taken 0 (throw)
+  2097152:   47-block  1
+call    4 returned 2097152
+    $$$$$:   47-block  2
+  2097152:   48:                    Ray ray = {glm::vec3(this->getCameraPosition()), worldDirection};
+call    0 returned 2097152
+call    1 returned 2097152
+        -:   49:
+  2097152:   50:                    pixels[i][j] += this->trace(ray, glm::vec3(1.0), 2);
+call    0 returned 2097152
+call    1 returned 2097152
+branch  2 taken 2097152 (fallthrough)
+branch  3 taken 0 (throw)
+  2097152:   50-block  0
+call    4 returned 2097152
+    $$$$$:   50-block  1
+        -:   51:
+        -:   52:                }
+   262144:   53:                pixels[i][j] /= samples;
+   262144:   53-block  0
+call    0 returned 262144
+   262144:   54:                pixels[i][j] = glm::clamp(pixels[i][j] / glm::vec3(pixels[i][j].x + 1.0, pixels[i][j].y + 1.0, pixels[i][j].z + 1.0), glm::vec3(0.0), glm::vec3(1.0));
+call    0 returned 262144
+call    1 returned 262144
+call    2 returned 262144
+call    3 returned 262144
+call    4 returned 262144
+branch  5 taken 262144 (fallthrough)
+branch  6 taken 0 (throw)
+   262144:   54-block  0
+    $$$$$:   54-block  1
+    $$$$$:   54-block  2
+    $$$$$:   54-block  3
+        -:   55:            }
+        -:   56:        }
+        -:   57:
+        1:   58:        return pixels;
+        1:   58-block  0
+        1:   58-block  1
+        -:   59:    }
+        -:   60:
+function _ZN9Raytracer5World9addObjectEPNS_15RaytracedObjectE called 2 returned 100% blocks executed 100%
+        2:   61:    void Raytracer::World::addObject(Raytracer::RaytracedObject *object) {
+        2:   62:        this->objects.push_back(object);
+        2:   62-block  0
+call    0 returned 2
+        2:   63:    }
+        -:   64:
+function _ZN9Raytracer5World12removeObjectEPNS_15RaytracedObjectE called 0 returned 0% blocks executed 0%
+    #####:   65:    Raytracer::RaytracedObject *Raytracer::World::removeObject(Raytracer::RaytracedObject *object) {
+    #####:   66:        for (auto it = this->objects.begin(); it != this->objects.end(); it++) {
+    %%%%%:   66-block  0
+call    0 never executed
+    %%%%%:   66-block  1
+call    1 never executed
+call    2 never executed
+branch  3 never executed
+branch  4 never executed
+    %%%%%:   66-block  2
+call    5 never executed
+    #####:   67:            if (*it == object) {
+    %%%%%:   67-block  0
+call    0 never executed
+branch  1 never executed
+branch  2 never executed
+    #####:   68:                this->objects.erase(it);
+    %%%%%:   68-block  0
+call    0 never executed
+call    1 never executed
+branch  2 never executed
+branch  3 never executed
+    $$$$$:   68-block  1
+    #####:   69:                return object;
+    %%%%%:   69-block  0
+        -:   70:            }
+        -:   71:        }
+    #####:   72:        return nullptr;
+    %%%%%:   72-block  0
+        -:   73:    }
+        -:   74:
+function _ZN9Raytracer5World12removeObjectEi called 0 returned 0% blocks executed 0%
+    #####:   75:    Raytracer::RaytracedObject *Raytracer::World::removeObject(int index) {
+    #####:   76:        RaytracedObject *object = this->objects[index];
+    %%%%%:   76-block  0
+call    0 never executed
+    #####:   77:        this->objects.erase(this->objects.begin() + index);
+call    0 never executed
+call    1 never executed
+call    2 never executed
+call    3 never executed
+branch  4 never executed
+branch  5 never executed
+    $$$$$:   77-block  0
+    $$$$$:   77-block  1
+    #####:   78:        return object;
+    %%%%%:   78-block  0
+    %%%%%:   78-block  1
+        -:   79:    }
+        -:   80:
+function _ZN9Raytracer5World9getObjectEi called 0 returned 0% blocks executed 0%
+    #####:   81:    Raytracer::RaytracedObject *Raytracer::World::getObject(int index) {
+    #####:   82:        return objects[index];
+    %%%%%:   82-block  0
+call    0 never executed
+        -:   83:    }
+        -:   84:
+function _ZN9Raytracer5World9setObjectEiPNS_15RaytracedObjectE called 0 returned 0% blocks executed 0%
+    #####:   85:    void Raytracer::World::setObject(int index, Raytracer::RaytracedObject *object) {
+    #####:   86:        objects[index] = object;
+    %%%%%:   86-block  0
+call    0 never executed
+    #####:   87:    }
+        -:   88:
+function _ZN9Raytracer5World14getObjectCountEv called 0 returned 0% blocks executed 0%
+    #####:   89:    int Raytracer::World::getObjectCount() {
+    #####:   90:        return this->objects.size();
+    %%%%%:   90-block  0
+call    0 never executed
+        -:   91:    }
+        -:   92:
+function _ZN9Raytracer5World9intersectENS_3RayE called 4023000 returned 100% blocks executed 93%
+  4023000:   93:    Raytracer::HitData Raytracer::World::intersect(Raytracer::Ray ray) {
+        -:   94:
+  4023000:   95:        HitData bestHit = HitData();
+  4023000:   96:        bestHit.t = std::numeric_limits<float>::max();
+  4023000:   96-block  0
+call    0 returned 4023000
+        -:   97:
+ 12069000:   98:        for (auto object: this->objects) {
+call    0 returned 4023000
+call    1 returned 4023000
+ 12069000:   98-block  0
+call    2 returned 12069000
+branch  3 taken 8046000 (fallthrough)
+branch  4 taken 4023000
+  8046000:   98-block  1
+call    5 returned 8046000
+  8046000:   98-block  2
+call    6 returned 8046000
+  8046000:   99:            HitData hit = object->intersect(ray);
+call    0 returned 8046000
+branch  1 taken 8046000 (fallthrough)
+branch  2 taken 0 (throw)
+  8046000:  100:            if (hit.t < bestHit.t && hit.hit) {
+  8046000:  100-block  0
+branch  0 taken 8004776 (fallthrough)
+branch  1 taken 41224
+  8004776:  100-block  1
+branch  2 taken 1957402 (fallthrough)
+branch  3 taken 6047374
+  1957402:  101:                bestHit = hit;
+  1957402:  101-block  0
+        -:  102:            }
+        -:  103:        }
+        -:  104:
+  4023000:  105:        return bestHit;
+  4023000:  105-block  0
+  4023000:  105-block  1
+        -:  106:
+        -:  107:    }
+        -:  108:
+function _ZN9Raytracer5World15getCameraMatrixEv called 0 returned 0% blocks executed 0%
+    #####:  109:    glm::mat4 World::getCameraMatrix() {
+    #####:  110:        return this->cameraMatrix;
+    %%%%%:  110-block  0
+        -:  111:    }
+        -:  112:
+function _ZN9Raytracer5World15setCameraMatrixEN3glm3matILi4ELi4EfLNS1_9qualifierE0EEE called 0 returned 0% blocks executed 0%
+    #####:  113:    void World::setCameraMatrix(glm::mat4 cameraMatrix) {
+    #####:  114:        this->cameraMatrix = cameraMatrix;
+    #####:  115:    }
+        -:  116:
+function _ZN9Raytracer5World10writeImageEPPN3glm3vecILi3EfLNS1_9qualifierE0EEEiiRKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE called 1 returned 100% blocks executed 81%
+        1:  117:    void World::writeImage(glm::vec3 **image, int width, int height, const std::string& filename) {
+        -:  118:
+        2:  119:        png::image<png::rgb_pixel> pngImage(width, height);
+        1:  119-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:  119-block  1
+call    3 returned 1
+    $$$$$:  119-block  2
+call    4 never executed
+        -:  120:
+      513:  121:        for (int i = 0; i < width; i++) {
+        1:  121-block  0
+      513:  121-block  1
+branch  0 taken 512 (fallthrough)
+branch  1 taken 1
+      512:  121-block  2
+   262656:  122:            for (int j = 0; j < height; j++) {
+      512:  122-block  0
+   262656:  122-block  1
+branch  0 taken 262144 (fallthrough)
+branch  1 taken 512
+   262144:  123:                pngImage.set_pixel(i, j, png::rgb_pixel(image[i][j].x * 255, image[i][j].y * 255, image[i][j].z * 255));
+   262144:  123-block  0
+call    0 returned 262144
+call    1 returned 262144
+branch  2 taken 262144 (fallthrough)
+branch  3 taken 0 (throw)
+   262144:  123-block  1
+    $$$$$:  123-block  2
+        -:  124:            }
+        -:  125:        }
+        -:  126:
+        1:  127:        pngImage.write(filename);
+        1:  127-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        -:  128:
+        1:  129:    }
+        -:  130:
+function _ZN9Raytracer5World10getObjectsEv called 0 returned 0% blocks executed 0%
+    #####:  131:    std::vector<RaytracedObject *> World::getObjects() {
+    #####:  132:        return this->objects;
+    %%%%%:  132-block  0
+call    0 never executed
+        -:  133:    }
+        -:  134:
+function _ZN9Raytracer5World17getCameraPositionEv called 2097152 returned 100% blocks executed 100%
+  2097152:  135:    glm::vec4 World::getCameraPosition() {
+  2097152:  136:        return this->cameraPosition;
+  2097152:  136-block  0
+        -:  137:    }
+        -:  138:
+function _ZN9Raytracer5World17setCameraPositionEN3glm3vecILi4EfLNS1_9qualifierE0EEE called 0 returned 0% blocks executed 0%
+    #####:  139:    void World::setCameraPosition(glm::vec4 cameraPosition) {
+    #####:  140:        this->cameraPosition = cameraPosition;
+    #####:  141:    }
+        -:  142:
+function _ZN9Raytracer5World9setCameraEN3glm3vecILi3EfLNS1_9qualifierE0EEES4_ called 1 returned 100% blocks executed 86%
+        1:  143:    void World::setCamera(glm::vec3 cameraPosition, glm::vec3 cameraTarget) {
+        1:  144:        this->cameraPosition = glm::vec4(cameraPosition, 1.0f);
+        1:  144-block  0
+call    0 returned 1
+        1:  145:        this->cameraMatrix = glm::lookAt(cameraPosition, -cameraTarget, glm::vec3(0.0f, -1.0f, 0.0f));
+call    0 returned 1
+call    1 returned 1
+call    2 returned 1
+branch  3 taken 1 (fallthrough)
+branch  4 taken 0 (throw)
+    $$$$$:  145-block  0
+        1:  146:    }
+        1:  146-block  0
+        -:  147:
+function _ZN9Raytracer5World5traceENS_3RayEN3glm3vecILi3EfLNS2_9qualifierE0EEEi called 4023000 returned 100% blocks executed 90%
+  4023000:  148:    glm::vec3 World::trace(Ray ray, glm::vec3 color, int depth) {
+        -:  149:
+  4023000:  150:        HitData hitData = this->intersect(ray);
+  4023000:  150-block  0
+call    0 returned 4023000
+branch  1 taken 4023000 (fallthrough)
+branch  2 taken 0 (throw)
+        -:  151:
+  4023000:  152:        if(!hitData.hit) {
+  4023000:  152-block  0
+branch  0 taken 2065602 (fallthrough)
+branch  1 taken 1957398
+  2065602:  153:            return color * glm::vec3(10.0f);
+  2065602:  153-block  0
+call    0 returned 2065602
+call    1 returned 2065602
+        -:  154:        }
+        -:  155:
+  1957398:  156:        if(depth <= 0) {
+  1957398:  156-block  0
+branch  0 taken 31550 (fallthrough)
+branch  1 taken 1925848
+    31550:  157:            return color;
+    31550:  157-block  0
+        -:  158:        }
+        -:  159:
+  1925848:  160:        glm::vec3 normal = hitData.normal;
+  1925848:  161:        glm::vec3 point = hitData.point;
+        -:  162:
+        -:  163:        glm::vec3 newColor = color
+  1925848:  164:                * hitData.object->getMaterial().color
+  1925848:  164-block  0
+call    0 returned 1925848
+  3851696:  165:                * hitData.object->getMaterial().emission;
+  1925848:  165-block  0
+call    0 returned 1925848
+branch  1 taken 1925848 (fallthrough)
+branch  2 taken 0 (throw)
+  1925848:  165-block  1
+call    3 returned 1925848
+branch  4 taken 1925848 (fallthrough)
+branch  5 taken 0 (throw)
+call    6 returned 1925848
+    $$$$$:  165-block  2
+        -:  166:
+  1925848:  167:        Ray outgoingRay = {point, hitData.object->getMaterial().calculateOutgoingDirection(ray.direction, normal)};
+call    0 returned 1925848
+branch  1 taken 1925848 (fallthrough)
+branch  2 taken 0 (throw)
+  1925848:  167-block  0
+call    3 returned 1925848
+branch  4 taken 1925848 (fallthrough)
+branch  5 taken 0 (throw)
+    $$$$$:  167-block  1
+        -:  168:
+  1925848:  169:        return this->trace(outgoingRay, newColor, depth - 1);
+  1925848:  169-block  0
+call    0 returned 1925848
+branch  1 taken 1925848 (fallthrough)
+branch  2 taken 0 (throw)
+        -:  170:
+        -:  171:
+        -:  172:    }
+        -:  173:
+        -:  174:}

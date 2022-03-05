@@ -1,0 +1,472 @@
+        -:    0:Source:/home/dihydromonoxide/vcpkg/installed/x64-linux/include/png++/io_base.hpp
+        -:    0:Graph:/home/dihydromonoxide/CLionProjects/Raytracer/cmake-build-debug-coverage/CMakeFiles/Raytracer.dir/src/main.cpp.gcno
+        -:    0:Data:/home/dihydromonoxide/CLionProjects/Raytracer/cmake-build-debug-coverage/CMakeFiles/Raytracer.dir/src/main.cpp.gcda
+        -:    0:Runs:1
+        -:    1:/*
+        -:    2: * Copyright (C) 2007,2008   Alex Shulgin
+        -:    3: *
+        -:    4: * This file is part of png++ the C++ wrapper for libpng.  PNG++ is free
+        -:    5: * software; the exact copying conditions are as follows:
+        -:    6: *
+        -:    7: * Redistribution and use in source and binary forms, with or without
+        -:    8: * modification, are permitted provided that the following conditions are met:
+        -:    9: *
+        -:   10: * 1. Redistributions of source code must retain the above copyright notice,
+        -:   11: * this list of conditions and the following disclaimer.
+        -:   12: *
+        -:   13: * 2. Redistributions in binary form must reproduce the above copyright
+        -:   14: * notice, this list of conditions and the following disclaimer in the
+        -:   15: * documentation and/or other materials provided with the distribution.
+        -:   16: *
+        -:   17: * 3. The name of the author may not be used to endorse or promote products
+        -:   18: * derived from this software without specific prior written permission.
+        -:   19: *
+        -:   20: * THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR
+        -:   21: * IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
+        -:   22: * OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN
+        -:   23: * NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+        -:   24: * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+        -:   25: * TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+        -:   26: * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+        -:   27: * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+        -:   28: * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+        -:   29: * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+        -:   30: */
+        -:   31:#ifndef PNGPP_IO_BASE_HPP_INCLUDED
+        -:   32:#define PNGPP_IO_BASE_HPP_INCLUDED
+        -:   33:
+        -:   34:#include <cassert>
+        -:   35:#include <cstdio>
+        -:   36:#include <cstdarg>
+        -:   37:#include "error.hpp"
+        -:   38:#include "info.hpp"
+        -:   39:#include "end_info.hpp"
+        -:   40:
+        -:   41:static void
+function _ZL18trace_io_transformPKcz called 0 returned 0% blocks executed 0%
+    #####:   42:trace_io_transform(char const* fmt, ...)
+        -:   43:{
+        -:   44:#ifdef DEBUG_IO_TRANSFORM
+        -:   45:    va_list va;
+        -:   46:    va_start(va, fmt);
+        -:   47:    fprintf(stderr, "TRANSFORM_IO: ");
+        -:   48:    vfprintf(stderr, fmt, va);
+        -:   49:    va_end(va);
+        -:   50:#endif
+    #####:   51:}
+        -:   52:#define TRACE_IO_TRANSFORM trace_io_transform
+        -:   53:
+        -:   54:namespace png
+        -:   55:{
+        -:   56:
+        -:   57:    /**
+        -:   58:     * \brief Base class for PNG reader/writer classes.
+        -:   59:     *
+        -:   60:     * \see  reader, writer
+        -:   61:     */
+        -:   62:    class io_base
+        -:   63:    {
+        -:   64:        io_base(io_base const&);
+        -:   65:        io_base& operator=(io_base const&);
+        -:   66:
+        -:   67:    public:
+        -:   68:        explicit io_base(png_struct* png)
+        -:   69:            : m_png(png),
+        -:   70:              m_info(*this, m_png),
+        -:   71:              m_end_info(*this, m_png)
+        -:   72:        {
+        -:   73:        }
+        -:   74:
+        -:   75:        ~io_base()
+        -:   76:        {
+        -:   77:            assert(! m_png);
+        -:   78:            assert(! m_info.get_png_info());
+        -:   79:            assert(! m_end_info.get_png_info());
+        -:   80:        }
+        -:   81:
+        -:   82:        png_struct* get_png_struct() const
+        -:   83:        {
+        -:   84:            return m_png;
+        -:   85:        }
+        -:   86:
+        -:   87:        info& get_info()
+        -:   88:        {
+        -:   89:            return m_info;
+        -:   90:        }
+        -:   91:
+        -:   92:        info const& get_info() const
+        -:   93:        {
+        -:   94:            return m_info;
+        -:   95:        }
+        -:   96:
+        -:   97:        image_info const& get_image_info() const
+        -:   98:        {
+        -:   99:            return m_info;
+        -:  100:        }
+        -:  101:
+        -:  102:        void set_image_info(image_info const& info)
+        -:  103:        {
+        -:  104:            static_cast< image_info& >(m_info) = info; // slice it
+        -:  105:        }
+        -:  106:
+        -:  107:        end_info& get_end_info()
+        -:  108:        {
+        -:  109:            return m_end_info;
+        -:  110:        }
+        -:  111:
+        -:  112:        end_info const& get_end_info() const
+        -:  113:        {
+        -:  114:            return m_end_info;
+        -:  115:        }
+        -:  116:
+        -:  117:        //////////////////////////////////////////////////////////////////////
+        -:  118:        // info accessors
+        -:  119:        //
+        -:  120:        uint_32 get_width() const
+        -:  121:        {
+        -:  122:            return m_info.get_width();
+        -:  123:        }
+        -:  124:
+        -:  125:        void set_width(uint_32 width)
+        -:  126:        {
+        -:  127:            m_info.set_width(width);
+        -:  128:        }
+        -:  129:
+        -:  130:        uint_32 get_height() const
+        -:  131:        {
+        -:  132:            return m_info.get_height();
+        -:  133:        }
+        -:  134:
+        -:  135:        void set_height(uint_32 height)
+        -:  136:        {
+        -:  137:            m_info.set_height(height);
+        -:  138:        }
+        -:  139:
+        -:  140:        color_type get_color_type() const
+        -:  141:        {
+        -:  142:            return m_info.get_color_type();
+        -:  143:        }
+        -:  144:
+        -:  145:        void set_color_type(color_type color_space)
+        -:  146:        {
+        -:  147:            m_info.set_color_type(color_space);
+        -:  148:        }
+        -:  149:
+        -:  150:        int get_bit_depth() const
+        -:  151:        {
+        -:  152:            return m_info.get_bit_depth();
+        -:  153:        }
+        -:  154:
+        -:  155:        void set_bit_depth(int bit_depth)
+        -:  156:        {
+        -:  157:            m_info.set_bit_depth(bit_depth);
+        -:  158:        }
+        -:  159:
+        -:  160:        interlace_type get_interlace_type() const
+        -:  161:        {
+        -:  162:            return m_info.get_interlace_type();
+        -:  163:        }
+        -:  164:
+        -:  165:        void set_interlace_type(interlace_type interlace)
+        -:  166:        {
+        -:  167:            m_info.set_interlace_type(interlace);
+        -:  168:        }
+        -:  169:
+        -:  170:        compression_type get_compression_type() const
+        -:  171:        {
+        -:  172:            return m_info.get_compression_type();
+        -:  173:        }
+        -:  174:
+        -:  175:        void set_compression_type(compression_type compression)
+        -:  176:        {
+        -:  177:            m_info.set_compression_type(compression);
+        -:  178:        }
+        -:  179:
+        -:  180:        filter_type get_filter_type() const
+        -:  181:        {
+        -:  182:            return m_info.get_filter_type();
+        -:  183:        }
+        -:  184:
+        -:  185:        void set_filter_type(filter_type filter)
+        -:  186:        {
+        -:  187:            m_info.set_filter_type(filter);
+        -:  188:        }
+        -:  189:
+        -:  190:        //////////////////////////////////////////////////////////////////////
+        -:  191:
+        -:  192:        bool has_chunk(chunk id)
+        -:  193:        {
+        -:  194:            return png_get_valid(m_png,
+        -:  195:                                 m_info.get_png_info(),
+        -:  196:                                 uint_32(id)) == uint_32(id);
+        -:  197:        }
+        -:  198:
+        -:  199:#if defined(PNG_READ_EXPAND_SUPPORTED)
+        -:  200:        void set_gray_1_2_4_to_8() const
+        -:  201:        {
+        -:  202:            TRACE_IO_TRANSFORM("png_set_expand_gray_1_2_4_to_8\n");
+        -:  203:            png_set_expand_gray_1_2_4_to_8(m_png);
+        -:  204:        }
+        -:  205:
+        -:  206:        void set_palette_to_rgb() const
+        -:  207:        {
+        -:  208:            TRACE_IO_TRANSFORM("png_set_palette_to_rgb\n");
+        -:  209:            png_set_palette_to_rgb(m_png);
+        -:  210:        }
+        -:  211:
+        -:  212:        void set_tRNS_to_alpha() const
+        -:  213:        {
+        -:  214:            TRACE_IO_TRANSFORM("png_set_tRNS_to_alpha\n");
+        -:  215:            png_set_tRNS_to_alpha(m_png);
+        -:  216:        }
+        -:  217:#endif // defined(PNG_READ_EXPAND_SUPPORTED)
+        -:  218:
+        -:  219:#if defined(PNG_READ_BGR_SUPPORTED) || defined(PNG_WRITE_BGR_SUPPORTED)
+        -:  220:        void set_bgr() const
+        -:  221:        {
+        -:  222:            TRACE_IO_TRANSFORM("png_set_bgr\n");
+        -:  223:            png_set_bgr(m_png);
+        -:  224:        }
+        -:  225:#endif
+        -:  226:
+        -:  227:#if defined(PNG_READ_GRAY_TO_RGB_SUPPORTED)
+        -:  228:        void set_gray_to_rgb() const
+        -:  229:        {
+        -:  230:            TRACE_IO_TRANSFORM("png_set_gray_to_rgb\n");
+        -:  231:            png_set_gray_to_rgb(m_png);
+        -:  232:        }
+        -:  233:#endif
+        -:  234:
+        -:  235:#ifdef PNG_FLOATING_POINT_SUPPORTED
+        -:  236:        void set_rgb_to_gray(rgb_to_gray_error_action error_action
+        -:  237:                             = rgb_to_gray_silent,
+        -:  238:                             double red_weight   = -1.0,
+        -:  239:                             double green_weight = -1.0) const
+        -:  240:        {
+        -:  241:            TRACE_IO_TRANSFORM("png_set_rgb_to_gray: error_action=%d,"
+        -:  242:                               " red_weight=%lf, green_weight=%lf\n",
+        -:  243:                               error_action, red_weight, green_weight);
+        -:  244:
+        -:  245:            png_set_rgb_to_gray(m_png, error_action, red_weight, green_weight);
+        -:  246:        }
+        -:  247:#else
+        -:  248:        void set_rgb_to_gray(rgb_to_gray_error_action error_action
+        -:  249:                             = rgb_to_gray_silent,
+        -:  250:                             fixed_point red_weight   = -1,
+        -:  251:                             fixed_point green_weight = -1) const
+        -:  252:        {
+        -:  253:            TRACE_IO_TRANSFORM("png_set_rgb_to_gray_fixed: error_action=%d,"
+        -:  254:                               " red_weight=%d, green_weight=%d\n",
+        -:  255:                               error_action, red_weight, green_weight);
+        -:  256:
+        -:  257:            png_set_rgb_to_gray_fixed(m_png, error_action,
+        -:  258:                                      red_weight, green_weight);
+        -:  259:        }
+        -:  260:#endif // PNG_FLOATING_POINT_SUPPORTED
+        -:  261:
+        -:  262:        //////////////////////////////////////////////////////////////////////
+        -:  263:        // alpha channel transformations
+        -:  264:        //
+        -:  265:#if defined(PNG_READ_STRIP_ALPHA_SUPPORTED)
+        -:  266:        void set_strip_alpha() const
+        -:  267:        {
+        -:  268:            TRACE_IO_TRANSFORM("png_set_strip_alpha\n");
+        -:  269:            png_set_strip_alpha(m_png);
+        -:  270:        }
+        -:  271:#endif
+        -:  272:
+        -:  273:#if defined(PNG_READ_SWAP_ALPHA_SUPPORTED) \
+        -:  274:    || defined(PNG_WRITE_SWAP_ALPHA_SUPPORTED)
+        -:  275:        void set_swap_alpha() const
+        -:  276:        {
+        -:  277:            TRACE_IO_TRANSFORM("png_set_swap_alpha\n");
+        -:  278:            png_set_swap_alpha(m_png);
+        -:  279:        }
+        -:  280:#endif
+        -:  281:
+        -:  282:#if defined(PNG_READ_INVERT_ALPHA_SUPPORTED) \
+        -:  283:    || defined(PNG_WRITE_INVERT_ALPHA_SUPPORTED)
+        -:  284:        void set_invert_alpha() const
+        -:  285:        {
+        -:  286:            TRACE_IO_TRANSFORM("png_set_invert_alpha\n");
+        -:  287:            png_set_invert_alpha(m_png);
+        -:  288:        }
+        -:  289:#endif
+        -:  290:
+        -:  291:#if defined(PNG_READ_FILLER_SUPPORTED) || defined(PNG_WRITE_FILLER_SUPPORTED)
+        -:  292:        void set_filler(uint_32 filler, filler_type type) const
+        -:  293:        {
+        -:  294:            TRACE_IO_TRANSFORM("png_set_filler: filler=%08x, type=%d\n",
+        -:  295:                               filler, type);
+        -:  296:
+        -:  297:            png_set_filler(m_png, filler, type);
+        -:  298:        }
+        -:  299:
+        -:  300:#if !defined(PNG_1_0_X)
+        -:  301:        void set_add_alpha(uint_32 filler, filler_type type) const
+        -:  302:        {
+        -:  303:            TRACE_IO_TRANSFORM("png_set_add_alpha: filler=%08x, type=%d\n",
+        -:  304:                               filler, type);
+        -:  305:
+        -:  306:            png_set_add_alpha(m_png, filler, type);
+        -:  307:        }
+        -:  308:#endif
+        -:  309:#endif // PNG_READ_FILLER_SUPPORTED || PNG_WRITE_FILLER_SUPPORTED
+        -:  310:
+        -:  311:#if defined(PNG_READ_SWAP_SUPPORTED) || defined(PNG_WRITE_SWAP_SUPPORTED)
+        -:  312:        void set_swap() const
+        -:  313:        {
+        -:  314:            TRACE_IO_TRANSFORM("png_set_swap\n");
+        -:  315:            png_set_swap(m_png);
+        -:  316:        }
+        -:  317:#endif
+        -:  318:
+        -:  319:#if defined(PNG_READ_PACK_SUPPORTED) || defined(PNG_WRITE_PACK_SUPPORTED)
+        -:  320:        void set_packing() const
+        -:  321:        {
+        -:  322:            TRACE_IO_TRANSFORM("png_set_packing\n");
+        -:  323:            png_set_packing(m_png);
+        -:  324:        }
+        -:  325:#endif
+        -:  326:
+        -:  327:#if defined(PNG_READ_PACKSWAP_SUPPORTED) \
+        -:  328:    || defined(PNG_WRITE_PACKSWAP_SUPPORTED)
+        -:  329:        void set_packswap() const
+        -:  330:        {
+        -:  331:            TRACE_IO_TRANSFORM("png_set_packswap\n");
+        -:  332:            png_set_packswap(m_png);
+        -:  333:        }
+        -:  334:#endif
+        -:  335:
+        -:  336:#if defined(PNG_READ_SHIFT_SUPPORTED) || defined(PNG_WRITE_SHIFT_SUPPORTED)
+        -:  337:        void set_shift(byte red_bits, byte green_bits, byte blue_bits,
+        -:  338:                       byte alpha_bits = 0) const
+        -:  339:        {
+        -:  340:            TRACE_IO_TRANSFORM("png_set_shift: red_bits=%d, green_bits=%d,"
+        -:  341:                               " blue_bits=%d, alpha_bits=%d\n",
+        -:  342:                               red_bits, green_bits, blue_bits, alpha_bits);
+        -:  343:
+        -:  344:            if (get_color_type() != color_type_rgb
+        -:  345:                || get_color_type() != color_type_rgb_alpha)
+        -:  346:            {
+        -:  347:                throw error("set_shift: expected RGB or RGBA color type");
+        -:  348:            }
+        -:  349:            color_info bits;
+        -:  350:            bits.red = red_bits;
+        -:  351:            bits.green = green_bits;
+        -:  352:            bits.blue = blue_bits;
+        -:  353:            bits.alpha = alpha_bits;
+        -:  354:            png_set_shift(m_png, & bits);
+        -:  355:        }
+        -:  356:
+        -:  357:        void set_shift(byte gray_bits, byte alpha_bits = 0) const
+        -:  358:        {
+        -:  359:            TRACE_IO_TRANSFORM("png_set_shift: gray_bits=%d, alpha_bits=%d\n",
+        -:  360:                               gray_bits, alpha_bits);
+        -:  361:
+        -:  362:            if (get_color_type() != color_type_gray
+        -:  363:                || get_color_type() != color_type_gray_alpha)
+        -:  364:            {
+        -:  365:                throw error("set_shift: expected Gray or Gray+Alpha color type");
+        -:  366:            }
+        -:  367:            color_info bits;
+        -:  368:            bits.gray = gray_bits;
+        -:  369:            bits.alpha = alpha_bits;
+        -:  370:            png_set_shift(m_png, & bits);
+        -:  371:        }
+        -:  372:#endif // PNG_READ_SHIFT_SUPPORTED || PNG_WRITE_SHIFT_SUPPORTED
+        -:  373:
+        -:  374:#if defined(PNG_READ_INTERLACING_SUPPORTED) \
+        -:  375:    || defined(PNG_WRITE_INTERLACING_SUPPORTED)
+        -:  376:        int set_interlace_handling() const
+        -:  377:        {
+        -:  378:            TRACE_IO_TRANSFORM("png_set_interlace_handling\n");
+        -:  379:            return png_set_interlace_handling(m_png);
+        -:  380:        }
+        -:  381:#endif
+        -:  382:
+        -:  383:#if defined(PNG_READ_INVERT_SUPPORTED) || defined(PNG_WRITE_INVERT_SUPPORTED)
+        -:  384:        void set_invert_mono() const
+        -:  385:        {
+        -:  386:            TRACE_IO_TRANSFORM("png_set_invert_mono\n");
+        -:  387:            png_set_invert_mono(m_png);
+        -:  388:        }
+        -:  389:#endif
+        -:  390:
+        -:  391:#if defined(PNG_READ_16_TO_8_SUPPORTED)
+        -:  392:        void set_strip_16() const
+        -:  393:        {
+        -:  394:            TRACE_IO_TRANSFORM("png_set_strip_16\n");
+        -:  395:            png_set_strip_16(m_png);
+        -:  396:        }
+        -:  397:#endif
+        -:  398:
+        -:  399:#if defined(PNG_READ_USER_TRANSFORM_SUPPORTED)
+        -:  400:        void set_read_user_transform(png_user_transform_ptr transform_fn)
+        -:  401:        {
+        -:  402:            TRACE_IO_TRANSFORM("png_set_read_user_transform_fn\n");
+        -:  403:            png_set_read_user_transform_fn(m_png, transform_fn);
+        -:  404:        }
+        -:  405:#endif
+        -:  406:
+        -:  407:#if defined(PNG_READ_USER_TRANSFORM_SUPPORTED) \
+        -:  408:    || defined(PNG_WRITE_USER_TRANSFORM_SUPPORTED)
+        -:  409:        void set_user_transform_info(void* info, int bit_depth, int channels)
+        -:  410:        {
+        -:  411:            TRACE_IO_TRANSFORM("png_set_user_transform_info: bit_depth=%d,"
+        -:  412:                               " channels=%d\n", bit_depth, channels);
+        -:  413:
+        -:  414:            png_set_user_transform_info(m_png, info, bit_depth, channels);
+        -:  415:        }
+        -:  416:#endif
+        -:  417:
+        -:  418:    protected:
+        -:  419:        void* get_io_ptr() const
+        -:  420:        {
+        -:  421:            return png_get_io_ptr(m_png);
+        -:  422:        }
+        -:  423:
+        -:  424:        void set_error(char const* message)
+        -:  425:        {
+        -:  426:            assert(message);
+        -:  427:            m_error = message;
+        -:  428:        }
+        -:  429:
+        -:  430:        void reset_error()
+        -:  431:        {
+        -:  432:            m_error.clear();
+        -:  433:        }
+        -:  434:
+        -:  435:/*
+        -:  436:        std::string const& get_error() const
+        -:  437:        {
+        -:  438:            return m_error;
+        -:  439:        }
+        -:  440:*/
+        -:  441:
+        -:  442:        bool is_error() const
+        -:  443:        {
+        -:  444:            return !m_error.empty();
+        -:  445:        }
+        -:  446:
+        -:  447:        void raise_error()
+        -:  448:        {
+        -:  449:            longjmp(png_jmpbuf(m_png), -1);
+        -:  450:        }
+        -:  451:
+        -:  452:        static void raise_error(png_struct* png, char const* message)
+        -:  453:        {
+        -:  454:            io_base* io = static_cast< io_base* >(png_get_error_ptr(png));
+        -:  455:            io->set_error(message);
+        -:  456:            io->raise_error();
+        -:  457:        }
+        -:  458:
+        -:  459:        png_struct* m_png;
+        -:  460:        info m_info;
+        -:  461:        end_info m_end_info;
+        -:  462:        std::string m_error;
+        -:  463:    };
+        -:  464:
+        -:  465:} // namespace png
+        -:  466:
+        -:  467:#endif // PNGPP_IO_BASE_HPP_INCLUDED

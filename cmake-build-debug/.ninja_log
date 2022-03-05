@@ -1,0 +1,10 @@
+# ninja log v5
+0	237	1646331057673825529	CMakeFiles/Raytracer.dir/src/objects/Plane.cpp.o	f62989a87a42e8d5
+1	452	1646274096578390607	CMakeFiles/Raytracer.dir/src/RaytracedObject.cpp.o	563f08790d565bcc
+1	275	1646274096402392981	CMakeFiles/Raytracer.dir/src/Ray.cpp.o	c9f7964f354c9028
+1	392	1646274096518391416	CMakeFiles/Raytracer.dir/src/Material.cpp.o	af30fd8e53221d8d
+1	398	1646284966089055392	CMakeFiles/Raytracer.dir/src/simplerandom.cpp.o	e37e6d404294c83a
+1	422	1646328447985782123	CMakeFiles/Raytracer.dir/src/objects/RaytracedObject.cpp.o	d77b8c7d00eb354d
+522	590	1646338687027477012	Raytracer	cd7fcb5a46e2fb73
+1	983	1646338564209110876	CMakeFiles/Raytracer.dir/src/World.cpp.o	70af40ba6b6b8e4f
+1	522	1646338686959477916	CMakeFiles/Raytracer.dir/src/main.cpp.o	7a8305f4a101586d

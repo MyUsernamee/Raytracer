@@ -1,0 +1,235 @@
+        -:    0:Source:/home/dihydromonoxide/vcpkg/installed/x64-linux/include/png++/info.hpp
+        -:    0:Graph:/home/dihydromonoxide/CLionProjects/Raytracer/cmake-build-debug-coverage/CMakeFiles/Raytracer.dir/src/World.cpp.gcno
+        -:    0:Data:/home/dihydromonoxide/CLionProjects/Raytracer/cmake-build-debug-coverage/CMakeFiles/Raytracer.dir/src/World.cpp.gcda
+        -:    0:Runs:1
+        -:    1:/*
+        -:    2: * Copyright (C) 2007,2008   Alex Shulgin
+        -:    3: *
+        -:    4: * This file is part of png++ the C++ wrapper for libpng.  PNG++ is free
+        -:    5: * software; the exact copying conditions are as follows:
+        -:    6: *
+        -:    7: * Redistribution and use in source and binary forms, with or without
+        -:    8: * modification, are permitted provided that the following conditions are met:
+        -:    9: *
+        -:   10: * 1. Redistributions of source code must retain the above copyright notice,
+        -:   11: * this list of conditions and the following disclaimer.
+        -:   12: *
+        -:   13: * 2. Redistributions in binary form must reproduce the above copyright
+        -:   14: * notice, this list of conditions and the following disclaimer in the
+        -:   15: * documentation and/or other materials provided with the distribution.
+        -:   16: *
+        -:   17: * 3. The name of the author may not be used to endorse or promote products
+        -:   18: * derived from this software without specific prior written permission.
+        -:   19: *
+        -:   20: * THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR
+        -:   21: * IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
+        -:   22: * OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN
+        -:   23: * NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+        -:   24: * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+        -:   25: * TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+        -:   26: * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+        -:   27: * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+        -:   28: * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+        -:   29: * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+        -:   30: */
+        -:   31:#ifndef PNGPP_INFO_HPP_INCLUDED
+        -:   32:#define PNGPP_INFO_HPP_INCLUDED
+        -:   33:
+        -:   34:#include <cassert>
+        -:   35:#include "info_base.hpp"
+        -:   36:#include "image_info.hpp"
+        -:   37:
+        -:   38:namespace png
+        -:   39:{
+        -:   40:
+        -:   41:    /**
+        -:   42:     * \brief Holds information about PNG image.  Adapter class for IO
+        -:   43:     * image operations.
+        -:   44:     */
+        -:   45:    class info
+        -:   46:        : public info_base,
+        -:   47:          public image_info
+        -:   48:    {
+        -:   49:    public:
+function _ZN3png4infoC2ERNS_7io_baseEP14png_struct_def called 1 returned 100% blocks executed 100%
+        1:   50:        info(io_base& io, png_struct* png)
+        1:   51:            : info_base(io, png)
+        1:   51-block  0
+call    0 returned 1
+call    1 returned 1
+        -:   52:        {
+        1:   53:        }
+        -:   54:
+        -:   55:        void read()
+        -:   56:        {
+        -:   57:            assert(m_png);
+        -:   58:            assert(m_info);
+        -:   59:
+        -:   60:            png_read_info(m_png, m_info);
+        -:   61:            png_get_IHDR(m_png,
+        -:   62:                         m_info,
+        -:   63:                         & m_width,
+        -:   64:                         & m_height,
+        -:   65:                         reinterpret_cast< int* >(& m_bit_depth),
+        -:   66:                         reinterpret_cast< int* >(& m_color_type),
+        -:   67:                         reinterpret_cast< int* >(& m_interlace_type),
+        -:   68:                         reinterpret_cast< int* >(& m_compression_type),
+        -:   69:                         reinterpret_cast< int* >(& m_filter_type));
+        -:   70:
+        -:   71:            if (png_get_valid(m_png, m_info, chunk_PLTE) == chunk_PLTE)
+        -:   72:            {
+        -:   73:                png_color* colors = 0;
+        -:   74:                int count = 0;
+        -:   75:                png_get_PLTE(m_png, m_info, & colors, & count);
+        -:   76:                m_palette.assign(colors, colors + count);
+        -:   77:            }
+        -:   78:
+        -:   79:#ifdef PNG_tRNS_SUPPORTED
+        -:   80:            if (png_get_valid(m_png, m_info, chunk_tRNS) == chunk_tRNS)
+        -:   81:            {
+        -:   82:                if (m_color_type == color_type_palette)
+        -:   83:                {
+        -:   84:                    int count;
+        -:   85:                    byte* values;
+        -:   86:                    if (png_get_tRNS(m_png, m_info, & values, & count, NULL)
+        -:   87:                        != PNG_INFO_tRNS)
+        -:   88:                    {
+        -:   89:                        throw error("png_get_tRNS() failed");
+        -:   90:                    }
+        -:   91:                    m_tRNS.assign(values, values + count);
+        -:   92:                }
+        -:   93:            }
+        -:   94:#endif
+        -:   95:
+        -:   96:#ifdef PNG_gAMA_SUPPORTED
+        -:   97:            if (png_get_valid(m_png, m_info, chunk_gAMA) == chunk_gAMA)
+        -:   98:            {
+        -:   99:#ifdef PNG_FLOATING_POINT_SUPPORTED
+        -:  100:                if (png_get_gAMA(m_png, m_info, &m_gamma) != PNG_INFO_gAMA)
+        -:  101:                {
+        -:  102:                    throw error("png_get_gAMA() failed");
+        -:  103:                }
+        -:  104:#else
+        -:  105:                png_fixed_point gamma = 0;
+        -:  106:                if (png_get_gAMA_fixed(m_png, m_info, &gamma) != PNG_INFO_gAMA)
+        -:  107:                {
+        -:  108:                    throw error("png_get_gAMA_fixed() failed");
+        -:  109:                }
+        -:  110:                m_gamma = gamma / 100000.0;
+        -:  111:#endif
+        -:  112:            }
+        -:  113:#endif
+        -:  114:        }
+        -:  115:
+function _ZNK3png4info5writeEv called 1 returned 100% blocks executed 35%
+        1:  116:        void write() const
+        -:  117:        {
+       1*:  118:            assert(m_png);
+        1:  118-block  0
+branch  0 taken 0 (fallthrough)
+branch  1 taken 1
+    %%%%%:  118-block  1
+call    2 never executed
+       1*:  119:            assert(m_info);
+        1:  119-block  0
+branch  0 taken 0 (fallthrough)
+branch  1 taken 1
+    %%%%%:  119-block  1
+call    2 never executed
+        -:  120:
+        1:  121:            sync_ihdr();
+        1:  121-block  0
+call    0 returned 1
+        1:  122:            if (m_color_type == color_type_palette)
+branch  0 taken 0 (fallthrough)
+branch  1 taken 1
+        -:  123:            {
+    #####:  124:                if (! m_palette.empty())
+    %%%%%:  124-block  0
+call    0 never executed
+branch  1 never executed
+branch  2 never executed
+        -:  125:                {
+    #####:  126:                    png_set_PLTE(m_png, m_info,
+call    0 never executed
+    #####:  127:                                 const_cast< color* >(& m_palette[0]),
+call    0 never executed
+    #####:  128:                                 (int) m_palette.size());
+    %%%%%:  128-block  0
+call    0 never executed
+        -:  129:                }
+    #####:  130:                if (! m_tRNS.empty())
+    %%%%%:  130-block  0
+call    0 never executed
+branch  1 never executed
+branch  2 never executed
+        -:  131:                {
+        -:  132:#ifdef PNG_tRNS_SUPPORTED
+    #####:  133:                    png_set_tRNS(m_png, m_info,
+call    0 never executed
+    #####:  134:                                 const_cast< byte* >(& m_tRNS[0]),
+call    0 never executed
+    #####:  135:                                 m_tRNS.size(),
+    %%%%%:  135-block  0
+call    0 never executed
+        -:  136:                                 NULL);
+        -:  137:#else
+        -:  138:                    throw error("attempted to write tRNS chunk; recompile with PNG_tRNS_SUPPORTED");
+        -:  139:#endif
+        -:  140:                }
+        -:  141:            }
+        -:  142:
+        1:  143:            if (m_gamma > 0)
+        1:  143-block  0
+branch  0 taken 0 (fallthrough)
+branch  1 taken 1
+        -:  144:            {
+        -:  145:#ifdef PNG_gAMA_SUPPORTED
+        -:  146:#ifdef PNG_FLOATING_POINT_SUPPORTED
+    #####:  147:                png_set_gAMA(m_png, m_info, m_gamma);
+    %%%%%:  147-block  0
+call    0 never executed
+        -:  148:#else
+        -:  149:                png_set_gAMA_fixed(m_png, m_info,
+        -:  150:                                   (png_fixed_point)(m_gamma * 100000));
+        -:  151:#endif
+        -:  152:#else
+        -:  153:                throw error("attempted to write gAMA chunk; recompile with PNG_gAMA_SUPPORTED");
+        -:  154:#endif
+        -:  155:            }
+        -:  156:
+        1:  157:            png_write_info(m_png, m_info);
+        1:  157-block  0
+call    0 returned 1
+        1:  158:        }
+        -:  159:
+        -:  160:        void update()
+        -:  161:        {
+        -:  162:            assert(m_png);
+        -:  163:            assert(m_info);
+        -:  164:
+        -:  165:            sync_ihdr();
+        -:  166:            png_read_update_info(m_png, m_info);
+        -:  167:        }
+        -:  168:
+        -:  169:    protected:
+function _ZNK3png4info9sync_ihdrEv called 1 returned 100% blocks executed 100%
+        1:  170:        void sync_ihdr(void) const
+        -:  171:        {
+        1:  172:            png_set_IHDR(m_png,
+        1:  173:                         m_info,
+        1:  174:                         m_width,
+        1:  175:                         m_height,
+        1:  176:                         m_bit_depth,
+        1:  177:                         m_color_type,
+        1:  178:                         m_interlace_type,
+        1:  179:                         m_compression_type,
+        1:  180:                         m_filter_type);
+        1:  180-block  0
+call    0 returned 1
+        1:  181:        }
+        -:  182:    };
+        -:  183:
+        -:  184:} // namespace png
+        -:  185:
+        -:  186:#endif // PNGPP_INFO_HPP_INCLUDED

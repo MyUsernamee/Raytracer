@@ -1,0 +1,111 @@
+        -:    0:Source:/home/dihydromonoxide/vcpkg/installed/x64-linux/include/png++/pixel_traits.hpp
+        -:    0:Graph:/home/dihydromonoxide/CLionProjects/Raytracer/cmake-build-debug-coverage/CMakeFiles/Raytracer.dir/src/World.cpp.gcno
+        -:    0:Data:/home/dihydromonoxide/CLionProjects/Raytracer/cmake-build-debug-coverage/CMakeFiles/Raytracer.dir/src/World.cpp.gcda
+        -:    0:Runs:1
+        -:    1:/*
+        -:    2: * Copyright (C) 2007,2008   Alex Shulgin
+        -:    3: *
+        -:    4: * This file is part of png++ the C++ wrapper for libpng.  PNG++ is free
+        -:    5: * software; the exact copying conditions are as follows:
+        -:    6: *
+        -:    7: * Redistribution and use in source and binary forms, with or without
+        -:    8: * modification, are permitted provided that the following conditions are met:
+        -:    9: *
+        -:   10: * 1. Redistributions of source code must retain the above copyright notice,
+        -:   11: * this list of conditions and the following disclaimer.
+        -:   12: *
+        -:   13: * 2. Redistributions in binary form must reproduce the above copyright
+        -:   14: * notice, this list of conditions and the following disclaimer in the
+        -:   15: * documentation and/or other materials provided with the distribution.
+        -:   16: *
+        -:   17: * 3. The name of the author may not be used to endorse or promote products
+        -:   18: * derived from this software without specific prior written permission.
+        -:   19: *
+        -:   20: * THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR
+        -:   21: * IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
+        -:   22: * OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN
+        -:   23: * NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+        -:   24: * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+        -:   25: * TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+        -:   26: * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+        -:   27: * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+        -:   28: * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+        -:   29: * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+        -:   30: */
+        -:   31:#ifndef PNGPP_PIXEL_TRAITS_HPP_INCLUDED
+        -:   32:#define PNGPP_PIXEL_TRAITS_HPP_INCLUDED
+        -:   33:
+        -:   34:#include <limits>
+        -:   35:#include "types.hpp"
+        -:   36:
+        -:   37:namespace png
+        -:   38:{
+        -:   39:
+        -:   40:    /**
+        -:   41:     * \brief Pixel traits class template.
+        -:   42:     *
+        -:   43:     * Provides information about pixel color type and components bit depth.
+        -:   44:     * Not implemented--see specializations.
+        -:   45:     *
+        -:   46:     * \see  pixel_traits<rgb_pixel>, pixel_traits<rgba_pixel>
+        -:   47:     */
+        -:   48:    template< typename pixel > struct pixel_traits;
+        -:   49:
+        -:   50:    /**
+        -:   51:     * \brief Basic pixel traits class template.
+        -:   52:     *
+        -:   53:     * Provides common implementation for various pixel_traits<>
+        -:   54:     * specializations.
+        -:   55:     */
+        -:   56:    template< typename pixel,
+        -:   57:              typename component,
+        -:   58:              color_type pixel_color_type,
+        -:   59:              int channels_value = sizeof(pixel) / sizeof(component),
+        -:   60:              int bit_depth_value = std::numeric_limits< component >::digits >
+        -:   61:    struct basic_pixel_traits
+        -:   62:    {
+        -:   63:        typedef pixel pixel_type;
+        -:   64:        typedef component component_type;
+        -:   65:
+function _ZN3png18basic_pixel_traitsINS_15basic_rgb_pixelIhEEhLNS_10color_typeE2ELi3ELi8EE14get_color_typeEv called 1 returned 100% blocks executed 100%
+        1:   66:        static color_type get_color_type()
+        -:   67:        {
+        1:   68:            return pixel_color_type;
+        1:   68-block  0
+        -:   69:        }
+        -:   70:        
+        -:   71:        static const int channels = channels_value;
+        -:   72:        static int get_channels()
+        -:   73:        {
+        -:   74:            return channels;
+        -:   75:        }
+        -:   76:        
+        -:   77:        static const int bit_depth = bit_depth_value;
+function _ZN3png18basic_pixel_traitsINS_15basic_rgb_pixelIhEEhLNS_10color_typeE2ELi3ELi8EE13get_bit_depthEv called 2 returned 100% blocks executed 100%
+        2:   78:        static int get_bit_depth()
+        -:   79:        {
+        2:   80:            return bit_depth;
+        2:   80-block  0
+        -:   81:        }
+        -:   82:    };
+        -:   83:
+        -:   84:    /**
+        -:   85:     * \brief Basic pixel traits class template for pixels with alpha
+        -:   86:     * channel.
+        -:   87:     */
+        -:   88:    template< typename component >
+        -:   89:    struct basic_alpha_pixel_traits
+        -:   90:    {
+        -:   91:        /**
+        -:   92:         * \brief Returns the default alpha channel filler for full
+        -:   93:         * opacity.
+        -:   94:         */
+        -:   95:        static component get_alpha_filler()
+        -:   96:        {
+        -:   97:            return std::numeric_limits< component >::max();
+        -:   98:        }
+        -:   99:    };
+        -:  100:
+        -:  101:} // namespace png
+        -:  102:
+        -:  103:#endif // PNGPP_PIXEL_TRAITS_HPP_INCLUDED

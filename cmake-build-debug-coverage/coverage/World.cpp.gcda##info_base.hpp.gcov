@@ -1,0 +1,88 @@
+        -:    0:Source:/home/dihydromonoxide/vcpkg/installed/x64-linux/include/png++/info_base.hpp
+        -:    0:Graph:/home/dihydromonoxide/CLionProjects/Raytracer/cmake-build-debug-coverage/CMakeFiles/Raytracer.dir/src/World.cpp.gcno
+        -:    0:Data:/home/dihydromonoxide/CLionProjects/Raytracer/cmake-build-debug-coverage/CMakeFiles/Raytracer.dir/src/World.cpp.gcda
+        -:    0:Runs:1
+        -:    1:/*
+        -:    2: * Copyright (C) 2007,2008   Alex Shulgin
+        -:    3: *
+        -:    4: * This file is part of png++ the C++ wrapper for libpng.  PNG++ is free
+        -:    5: * software; the exact copying conditions are as follows:
+        -:    6: *
+        -:    7: * Redistribution and use in source and binary forms, with or without
+        -:    8: * modification, are permitted provided that the following conditions are met:
+        -:    9: *
+        -:   10: * 1. Redistributions of source code must retain the above copyright notice,
+        -:   11: * this list of conditions and the following disclaimer.
+        -:   12: *
+        -:   13: * 2. Redistributions in binary form must reproduce the above copyright
+        -:   14: * notice, this list of conditions and the following disclaimer in the
+        -:   15: * documentation and/or other materials provided with the distribution.
+        -:   16: *
+        -:   17: * 3. The name of the author may not be used to endorse or promote products
+        -:   18: * derived from this software without specific prior written permission.
+        -:   19: *
+        -:   20: * THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR
+        -:   21: * IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
+        -:   22: * OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN
+        -:   23: * NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+        -:   24: * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+        -:   25: * TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+        -:   26: * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+        -:   27: * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+        -:   28: * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+        -:   29: * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+        -:   30: */
+        -:   31:#ifndef PNGPP_INFO_BASE_HPP_INCLUDED
+        -:   32:#define PNGPP_INFO_BASE_HPP_INCLUDED
+        -:   33:
+        -:   34:#include <cassert>
+        -:   35:#include "error.hpp"
+        -:   36:#include "types.hpp"
+        -:   37:
+        -:   38:namespace png
+        -:   39:{
+        -:   40:
+        -:   41:    class io_base;
+        -:   42:
+        -:   43:    /**
+        -:   44:     * \brief Internal class to hold PNG info or end_info.
+        -:   45:     */
+        -:   46:    class info_base
+        -:   47:    {
+        -:   48:        info_base(info_base const&);
+        -:   49:        info_base& operator=(info_base const&);
+        -:   50:
+        -:   51:    public:
+function _ZN3png9info_baseC2ERNS_7io_baseEP14png_struct_def called 2 returned 100% blocks executed 100%
+        2:   52:        info_base(io_base& io, png_struct* png)
+        2:   53:            : m_io(io),
+        -:   54:              m_png(png),
+        2:   55:              m_info(png_create_info_struct(m_png))
+        2:   55-block  0
+call    0 returned 2
+        -:   56:        {
+        2:   57:        }
+        -:   58:
+function _ZNK3png9info_base12get_png_infoEv called 2 returned 100% blocks executed 100%
+        2:   59:        png_info* get_png_info() const
+        -:   60:        {
+        2:   61:            return m_info;
+        2:   61-block  0
+        -:   62:        }
+        -:   63:
+function _ZN3png9info_base16get_png_info_ptrEv called 1 returned 100% blocks executed 100%
+        1:   64:        png_info** get_png_info_ptr()
+        -:   65:        {
+        1:   66:            return & m_info;
+        1:   66-block  0
+        -:   67:        }
+        -:   68:
+        -:   69:    protected:
+        -:   70:        io_base& m_io;
+        -:   71:        png_struct* m_png;
+        -:   72:        png_info* m_info;
+        -:   73:    };
+        -:   74:
+        -:   75:} // namespace png
+        -:   76:
+        -:   77:#endif // PNGPP_INFO_BASE_HPP_INCLUDED

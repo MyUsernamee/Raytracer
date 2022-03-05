@@ -1,0 +1,41 @@
+The C compiler identification could not be found in "/home/dihydromonoxide/CLionProjects/Raytracer/cmake-build-debug-coverage/CMakeFiles/3.21.1/CompilerIdC/CMakeCCompilerId.gcno"
+
+The CXX compiler identification could not be found in "/home/dihydromonoxide/CLionProjects/Raytracer/cmake-build-debug-coverage/CMakeFiles/3.21.1/CompilerIdCXX/CMakeCXXCompilerId.gcno"
+
+Performing C SOURCE FILE Test CMAKE_HAVE_LIBC_PTHREAD failed with the following output:
+Change Dir: /home/dihydromonoxide/CLionProjects/Raytracer/cmake-build-debug-coverage/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/home/dihydromonoxide/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/213.6777.58/bin/ninja/linux/ninja cmTC_8e1c4 && [1/2] Building C object CMakeFiles/cmTC_8e1c4.dir/src.c.o
+[2/2] Linking C executable cmTC_8e1c4
+FAILED: cmTC_8e1c4 
+: && /usr/bin/cc --coverage  CMakeFiles/cmTC_8e1c4.dir/src.c.o -o cmTC_8e1c4   && :
+/usr/bin/ld: CMakeFiles/cmTC_8e1c4.dir/src.c.o: in function `main':
+src.c:(.text+0x6a): undefined reference to `pthread_create'
+/usr/bin/ld: src.c:(.text+0x88): undefined reference to `pthread_detach'
+/usr/bin/ld: src.c:(.text+0xa6): undefined reference to `pthread_cancel'
+/usr/bin/ld: src.c:(.text+0xc9): undefined reference to `pthread_join'
+collect2: error: ld returned 1 exit status
+ninja: build stopped: subcommand failed.
+
+
+Source file was:
+#include <pthread.h>
+
+static void* test_func(void* data)
+{
+  return data;
+}
+
+int main(void)
+{
+  pthread_t thread;
+  pthread_create(&thread, NULL, test_func, NULL);
+  pthread_detach(thread);
+  pthread_cancel(thread);
+  pthread_join(thread, NULL);
+  pthread_atfork(NULL, NULL, NULL);
+  pthread_exit(NULL);
+
+  return 0;
+}
+

@@ -1,0 +1,21 @@
+# ninja log v5
+1	285	1646331072197645355	CMakeFiles/Raytracer.dir/src/objects/Plane.cpp.o	97f811f956f66eb3
+1	575	1646273721755446883	CMakeFiles/Raytracer.dir/src/RaytracedObject.cpp.o	f9634ee98eae1957
+1	359	1646273721539449796	CMakeFiles/Raytracer.dir/src/Ray.cpp.o	2ad647db54cc68d2
+1	486	1646273721667448070	CMakeFiles/Raytracer.dir/src/Material.cpp.o	314d1cb5e475641c
+0	21	1646506172481224053	build.ninja	510cc3537d5fa778
+1	432	1646285239261135190	CMakeFiles/Raytracer.dir/src/simplerandom.cpp.o	8e505301f7456355
+1	507	1646328355211070336	CMakeFiles/Raytracer.dir/src/objects/RaytracedObject.cpp.o	3165e1df59e4ea51
+478	528	1646505165711916681	Raytracer	7f57401eb4eb7f72
+1	1169	1646338708475191543	CMakeFiles/Raytracer.dir/src/World.cpp.o	c39da702d827bd2d
+1	478	1646505165663917389	CMakeFiles/Raytracer.dir/src/main.cpp.o	27a80b1f05fe9732
+1	43	1646506620462230634	CMakeFiles/Raytracer.dir/src/Image.cpp.o	6c0ad0e555242d1b
+1	57	1646506620474230452	CMakeFiles/Raytracer.dir/src/Denoiser.cpp.o	5549d3a9ac2bde5c
+1	297	1646506620714226789	CMakeFiles/Raytracer.dir/src/objects/Plane.cpp.o	97f811f956f66eb3
+1	497	1646506620914223736	CMakeFiles/Raytracer.dir/src/objects/RaytracedObject.cpp.o	3165e1df59e4ea51
+1	937	1646506621354217020	CMakeFiles/Raytracer.dir/src/World.cpp.o	c39da702d827bd2d
+1	965	1646507486833280711	CMakeFiles/Raytracer.dir/src/World.cpp.o	c39da702d827bd2d
+1	983	1646507511924910272	CMakeFiles/Raytracer.dir/src/World.cpp.o	c39da702d827bd2d
+1	572	1646507589439766687	CMakeFiles/Raytracer.dir/src/main.cpp.o	27a80b1f05fe9732
+1	1186	1646507590051757663	CMakeFiles/Raytracer.dir/src/World.cpp.o	c39da702d827bd2d
+1186	1245	1646507590111756778	Raytracer	bc4e3e1d22bc044d
