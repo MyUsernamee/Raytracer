@@ -61,12 +61,7 @@ namespace Raytracer {
             std::cout << "Rendering row " << i << " of " << height << std::endl;
         }
 
-        glm::vec3*** buffers = {};
-        buffers[0] = objectBuffer;
-        buffers[1] = normalBuffer;
-        buffers[2] = albedoBuffer;
-
-        return {width, height, pixels, buffers};
+        return {width, height, pixels};
 
     }
 

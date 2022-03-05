@@ -19,4 +19,8 @@ namespace Raytracer {
         return number;
     }
 
+    void random_seed(int seed){
+        generator.seed(seed);
+    }
+
 }
