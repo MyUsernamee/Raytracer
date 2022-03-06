@@ -18,6 +18,13 @@ sudo chmod +x bootstrap-vcpkg.sh
 ./bootstrap-vcpkg.sh
 ./vcpkg integrate install
 
-sudo apt install cmake ninja-build -y
+cd /opt
+curl https://github.com/Kitware/CMake/releases/download/v3.23.0-rc2/cmake-3.23.0-rc2-linux-x86_64.sh
+sudo chmod +x cmake-3.23.0-rc2-linux-x86_64.sh
+
+# Create sym link in /usr/local/bin
+sudo ln -s /opt/cmake-3.23.0-rc2-linux-x86_64/bin/* /usr/local/bin/
+
+sudo apt install ninja-build -y
 
 echo "Done."
