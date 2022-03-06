@@ -31,7 +31,7 @@ vcpkg install pngpp
 vcpkg install glm
 
 mkdir build
-cmake . -DCMAKE_TOOLCHAIN_FILE=$VCPKG_ROOT/scripts/buildsystems/vcpkg.cmake -DCMAKE_BUILD_TYPE=release -DCMAKE_MAKE_PROGRAM=ninja -G Ninja --build build
+cmake . -DCMAKE_TOOLCHAIN_FILE=$VCPKG_ROOT/scripts/buildsystems/vcpkg.cmake -DCMAKE_BUILD_TYPE=release -DCMAKE_MAKE_PROGRAM=ninja -G Ninja -B build
 ninja ./build
 
 echo "Build complete"
