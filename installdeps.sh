@@ -17,7 +17,7 @@ sudo chmod +x bootstrap-vcpkg.sh
 ./vcpkg integrate install
 
 echo "export PATH=\"$HOME/vcpkg/bin:\$PATH\"" >> ~/.bashrc
-export PATH="$HOME/vcpkg/bin:$PATH"
+export PATH="$HOME/vcpkg:$PATH"
 
 sudo apt install ninja-build -y
 
