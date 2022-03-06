@@ -4,6 +4,7 @@
 
 #include "World.h"
 
+#define SATURATE_COLOR
 
 namespace Raytracer {
 
@@ -257,6 +258,10 @@ namespace Raytracer {
     glm::vec3 World::mapColor(glm::vec3 color) {
 
 #ifdef SATURATE_COLOR
+
+        if(color == glm::vec3(0.0f)) {
+            return glm::vec3(0.0f);
+        }
 
         // Simple HDR color mapping
         float max = std::max(std::max(color.x, color.y), color.z);
