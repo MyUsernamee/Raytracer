@@ -11,7 +11,7 @@ using namespace Raytracer;
 
 #define WIDTH 512
 #define HEIGHT 512
-#define SAMPLES 4
+#define SAMPLES 128
 #define SCALE 8.0f
 #define SCENE 1
 #define OBJECTS 40
