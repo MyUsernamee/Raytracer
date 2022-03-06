@@ -49,7 +49,7 @@ namespace Raytracer {
                 for(int k = 0; k < samples; k++) {
 
                     glm::vec3 sample = this->trace(hitData, glm::vec3(1.0), glm::vec3(0.0), 4);
-                    sample = sample / (sample + glm::vec3(1.0));
+                    sample = World::mapColor(sample);
                     // We do this clamping to prevent fireflies.
                     // It happens because we account for an indirect ray that has a lot of energy being transmitted.
 
@@ -176,7 +176,7 @@ namespace Raytracer {
 
         if(hitData.object->getMaterial().emission > 0.0 && firstHit) {
             float lightSurfaceDistance = glm::length(hitData.object->getPosition() - hitData.point);
-            return hitData.object->getMaterial().color * hitData.object->getMaterial().emission / (lightSurfaceDistance * lightSurfaceDistance) * color;
+            return (color * hitData.object->getMaterial().color) * hitData.object->getMaterial().emission / (lightSurfaceDistance * lightSurfaceDistance);
         }
         else if(hitData.object->getMaterial().emission > 0.0) {
 
@@ -214,7 +214,6 @@ namespace Raytracer {
     glm::vec3 World::calculateLighting(HitData hit) {
 
         Ray ray = hit.ray;
-
         glm::vec3 color = glm::vec3(0.0f);
 
         for (auto light: this->lights) {
@@ -253,6 +252,23 @@ namespace Raytracer {
 
     glm::vec3 World::trace(HitData hit, glm::vec3 color, glm::vec3 light, int depth) {
         return this->trace(hit, color, light, depth, true);
+    }
+
+    glm::vec3 World::mapColor(glm::vec3 color) {
+
+#ifdef SATURATE_COLOR
+
+        // Simple HDR color mapping
+        float max = std::max(std::max(color.x, color.y), color.z);
+
+        return color / max * (max / (max + 1.0f));
+
+#else
+
+        return color / (color + glm::vec3(1.0f));
+
+#endif
+
     }
 
 }

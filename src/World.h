@@ -53,6 +53,7 @@ namespace Raytracer {
         glm::vec3 trace(HitData hit, glm::vec3 color, glm::vec3 light, int depth);
         glm::vec3 calculateLighting(HitData hit);
 
+        static glm::vec3 mapColor(glm::vec3 color);
 
     private:
         std::vector<RaytracedObject*> objects;

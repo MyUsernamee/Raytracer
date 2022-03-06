@@ -11,7 +11,7 @@ using namespace Raytracer;
 
 #define WIDTH 512
 #define HEIGHT 512
-#define SAMPLES 128
+#define SAMPLES 64
 #define SCALE 8.0f
 #define SCENE 1
 #define OBJECTS 40
@@ -127,7 +127,7 @@ int main() {
 
     time(&end);
 
-    Raytracer::World::writeImage(pixels, "test.png");
+    Raytracer::World::writeImage(pixels, "desatuatingmapper.png");
 
     std::cout << "Time: " << difftime(end, start) << " seconds" << std::endl;
 
