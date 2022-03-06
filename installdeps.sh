@@ -1,7 +1,7 @@
 chmod +x ./build.sh
 
 echo "This will install vcpkg to your home directory."
-echo "It will also install cmake and ninja."
+echo "It will also install ninja."
 echo "Are you sure you want to continue? (y/n)"
 read response
 
@@ -10,20 +10,14 @@ if [ $response != "y" ]; then
 fi
 
 cd ~
-mkdir testinstall/
-cd testinstall/
 git clone https://github.com/microsoft/vcpkg.git
 cd vcpkg
 sudo chmod +x bootstrap-vcpkg.sh
 ./bootstrap-vcpkg.sh
 ./vcpkg integrate install
 
-cd /opt
-curl https://github.com/Kitware/CMake/releases/download/v3.23.0-rc2/cmake-3.23.0-rc2-linux-x86_64.sh
-sudo chmod +x cmake-3.23.0-rc2-linux-x86_64.sh
-
-# Create sym link in /usr/local/bin
-sudo ln -s /opt/cmake-3.23.0-rc2-linux-x86_64/bin/* /usr/local/bin/
+echo "export PATH=\"$HOME/vcpkg/bin:\$PATH\"" >> ~/.bashrc
+export PATH="$HOME/vcpkg/bin:$PATH"
 
 sudo apt install ninja-build -y
 
