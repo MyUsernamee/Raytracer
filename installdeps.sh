@@ -16,8 +16,17 @@ sudo chmod +x bootstrap-vcpkg.sh
 ./bootstrap-vcpkg.sh
 ./vcpkg integrate install
 
-echo "export PATH=\"$HOME/vcpkg/bin:\$PATH\"" >> ~/.bashrc
-export PATH="$HOME/vcpkg:$PATH"
+# If the export for vcpkg is alread in the .bashrc file, we don't need to do anything
+if ! grep -q "export PATH=\"$HOME/vcpkg:\$PATH\"" ~/.bashrc; then
+    echo "export PATH=\"$HOME/vcpkg:\$PATH\"" >> ~/.bashrc
+    export PATH="$HOME/vcpkg:$PATH"
+fi
+
+if ! grep -q "export VCPKG_ROOT=\"$HOME/vcpkg\"" ~/.bashrc; then
+    echo "export VCPKG_ROOT=\"$HOME/vcpkg\"" >> ~/.bashrc
+    export VCPKG_ROOT="$HOME/vcpkg"
+fi
+
 
 sudo apt install ninja-build -y
 
