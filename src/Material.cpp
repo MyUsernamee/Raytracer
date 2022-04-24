@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include "Material.h"
+#include <thread>
 
 namespace Raytracer {
 
@@ -16,6 +17,8 @@ namespace Raytracer {
     }
 
     glm::vec3 Material::calculateOutgoingDirection(glm::vec3 incoming, glm::vec3 normal) {
+
+        float seed = std::hash<std::thread::id>{}(std::this_thread::get_id()) / std::chrono::system_clock::now().time_since_epoch().count();
 
         glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f);
         glm::vec3 right = glm::normalize(glm::cross(up, normal + glm::vec3(0.0001f)));

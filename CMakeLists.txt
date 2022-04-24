@@ -3,7 +3,7 @@ project(Raytracer)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(Raytracer src/main.cpp src/Ray.cpp src/Ray.h src/objects/RaytracedObject.cpp src/objects/RaytracedObject.h src/World.cpp src/World.h src/Material.cpp src/Material.h src/simplerandom.h src/simplerandom.cpp src/objects/Plane.cpp src/objects/Plane.h src/Denoiser.cpp src/Denoiser.h src/Image.cpp src/Image.h ThreadUtilities.cpp ThreadUtilities.h)
+add_executable(Raytracer src/main.cpp src/Ray.cpp src/Ray.h src/objects/RaytracedObject.cpp src/objects/RaytracedObject.h src/World.cpp src/World.h src/Material.cpp src/Material.h src/simplerandom.h src/simplerandom.cpp src/objects/Plane.cpp src/objects/Plane.h src/Denoiser.cpp src/Denoiser.h src/Image.cpp src/Image.h ThreadUtilities.cpp ThreadUtilities.h src/objects/Vertex.cpp src/objects/Vertex.h src/objects/Triangle.cpp src/objects/Triangle.h)
 
 find_package(glm CONFIG REQUIRED)
 target_link_libraries(Raytracer PRIVATE glm::glm)

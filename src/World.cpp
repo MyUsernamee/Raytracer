@@ -9,12 +9,14 @@
 namespace Raytracer {
 
     Raytracer::World::World() {
+        this->sampleThreads = std::vector<std::thread*>();
         this->objects = std::vector<RaytracedObject *>();
         this->cameraMatrix = glm::lookAt(glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 0.0, -1.0), glm::vec3(0.0, 1.0, 0.0));
         this->cameraPosition = glm::vec4(0.0, 0.0, -1.0, 0.0);
     }
 
     Raytracer::World::World(std::vector<RaytracedObject *> objects) {
+        this->sampleThreads = std::vector<std::thread*>();
         this->objects = objects;
         this->cameraMatrix = glm::lookAt(glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 0.0, -1.0), glm::vec3(0.0, 1.0, 0.0));
         this->cameraPosition = glm::vec4(0.0, 0.0, -1.0, 0.0);
@@ -33,6 +35,44 @@ namespace Raytracer {
         auto** normalBuffer = new glm::vec3*[width];
         auto** albedoBuffer = new glm::vec3*[width];
 
+        auto* samplesBuffer = new Image*[samples];
+
+        for(int sample = 0; sample < samples; sample++) {
+
+            Image* image = new Image();
+
+            this->queueSampleThread(width, height, image);
+            samplesBuffer[sample] = image;
+
+        }
+
+        for(int sample = 0; sample < samples; sample++) {
+            this->sampleThreads[sample]->join();
+            for(int x = 0; x < width; x++) {
+                // If this row is not allocated yet, allocate it
+                if(pixels[x] == nullptr) {
+                    pixels[x] = new glm::vec3[height];
+                }
+                for(int y = 0; y < height; y++) {
+                    pixels[x][y] += samplesBuffer[sample]->pixels[x][y] * glm::vec3(1.0 / samples);
+                }
+            }
+            std::cout << "Sample " << sample << " done" << std::endl;
+        }
+
+        return {width, height, pixels};
+
+    }
+
+    Image Raytracer::World::renderImage(int width, int height) {
+
+        auto** pixels = new glm::vec3*[width];
+        auto** objectBuffer = new glm::vec3*[width];
+        auto** normalBuffer = new glm::vec3*[width];
+        auto** albedoBuffer = new glm::vec3*[width];
+
+        float ratio = (float)width / (float)height;
+
         for (int i = 0; i < width; i++) {
             pixels[i] = new glm::vec3[height];
             for (int j = 0; j < height; j++) {
@@ -40,6 +80,7 @@ namespace Raytracer {
 
                 float u = (float) i / (float) width * 2.0 - 1.0;
                 float v = (float) j / (float) height * 2.0 - 1.0;
+                u = u * ratio;
 
                 glm::vec3 direction = glm::normalize(glm::vec3(u, v, 1.0f));
                 glm::vec3 worldDirection =  glm::vec4(direction, 1.0) * this->cameraMatrix;
@@ -47,19 +88,10 @@ namespace Raytracer {
 
                 HitData hitData = this->intersect(ray);
 
-                for(int k = 0; k < samples; k++) {
+                pixels[i][j] = this->trace(hitData, glm::vec3(1.0f), glm::vec3(0.0f), 4, true);
 
-                    glm::vec3 sample = this->trace(hitData, glm::vec3(1.0), glm::vec3(0.0), 4);
-                    sample = World::mapColor(sample);
-                    // We do this clamping to prevent fireflies.
-                    // It happens because we account for an indirect ray that has a lot of energy being transmitted.
-
-                    pixels[i][j] += sample / (float) samples;
-
-                }
-
+                pixels[i][j] = this->mapColor(pixels[i][j]);
             }
-            std::cout << "Rendering row " << i << " of " << height << std::endl;
         }
 
         return {width, height, pixels};
@@ -177,7 +209,7 @@ namespace Raytracer {
 
         if(hitData.object->getMaterial().emission > 0.0 && firstHit) {
             float lightSurfaceDistance = glm::length(hitData.object->getPosition() - hitData.point);
-            return (color * hitData.object->getMaterial().color) * hitData.object->getMaterial().emission / (lightSurfaceDistance * lightSurfaceDistance);
+            return (color * hitData.object->getMaterial().color) * hitData.object->getMaterial().emission;
         }
         else if(hitData.object->getMaterial().emission > 0.0) {
 
@@ -219,10 +251,10 @@ namespace Raytracer {
 
         for (auto light: this->lights) {
 
-            glm::vec3 randomLightPosition = light->getPosition() + glm::vec3(
+            glm::vec3 randomLightPosition = light->getPosition() + glm::vec3(hit.object->getOrientation() * glm::vec4(
                     light->getScale().x * (2 * random_float() - 1),
                     light->getScale().y * (2 * random_float() - 1),
-                    light->getScale().z * (2 * random_float() - 1));
+                    light->getScale().z * (2 * random_float() - 1), 1.0f));
             glm::vec3 lightDirection = glm::normalize(randomLightPosition - hit.point);
 
             Ray ray = {hit.point, lightDirection};
@@ -230,7 +262,9 @@ namespace Raytracer {
 
             if(lightHit.hit && lightHit.object == light) {
 
-                color += light->getMaterial().color * light->getMaterial().emission / (lightHit.t * lightHit.t) *
+                float lightSurfaceDistance = lightHit.t + 1.0f;
+
+                color += light->getMaterial().color * light->getMaterial().emission / (lightSurfaceDistance * lightSurfaceDistance) *
                         std::max(glm::dot(lightDirection, hit.normal), 0.0f) * hit.object->getMaterial().diffuse;
 
             }
@@ -275,5 +309,24 @@ namespace Raytracer {
 #endif
 
     }
+
+   std::thread* World::queueSampleThread(int width, int height,
+                                  Image *result) {
+
+        std::thread* thread = new std::thread(&World::traceThread, this, width, height, result);
+        this->sampleThreads.push_back(thread);
+
+        return thread;
+
+    }
+
+    void World::traceThread(int width, int height, Image* result) {
+
+        *result = this->renderImage(width, height);
+        return;
+
+
+    }
+
 
 }

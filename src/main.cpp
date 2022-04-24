@@ -9,14 +9,22 @@
 
 using namespace Raytracer;
 
-#define WIDTH 512
-#define HEIGHT 512
-#define SAMPLES 128
-#define SCALE 8.0f
+#define WIDTH 4096
+#define HEIGHT 2160
+#define SAMPLES 1
+#define SCALE 16.0f
 #define SCENE 1
-#define OBJECTS 40
+#define OBJECTS 20
 
-int main() {
+int main(int argc, char** argv) {
+
+    if(argc > 1) {
+
+        // Set the random seed
+        std::cout << "Setting random seed to " << argv[1] << std::endl;
+
+
+    }
 
 #ifdef GENERATE_TEST_IMAGE
 
@@ -101,7 +109,7 @@ int main() {
     world->addObject(new Plane(glm::vec3(0, -1, 0),
                                glm::vec3(0, 1, 0),
                                glm::vec3(100.0f),
-                               Material(glm::vec3(1.0f), 1.0, 0.0)));
+                               Material(glm::vec3(1.0f), 1.0f, 0.0)));
 
     world->addObject(new Plane(glm::vec3(4.0f),
                                glm::normalize(glm::vec3(-1.0f)),

@@ -6,21 +6,17 @@
 #include <iostream>
 #include <random>
 #include <functional>
+#include <thread>
 #include "simplerandom.h"
 
 namespace Raytracer {
 
-    std::default_random_engine generator;
-    std::uniform_real_distribution<float> distribution(0.0f, 1.0f);
-    auto random = std::bind ( distribution, generator );
-
     float random_float(){
-        float number = random();
-        return number;
-    }
-
-    void random_seed(int seed){
-        generator.seed(seed);
+        float seed = std::hash<std::thread::id>{}(std::this_thread::get_id()) * std::chrono::steady_clock::now().time_since_epoch().count();
+        //std::cout << seed << std::endl;
+        std::default_random_engine generator(seed);
+        std::uniform_real_distribution<float> distribution(0.0f, 1.0f);
+        return distribution(generator);
     }
 
 }

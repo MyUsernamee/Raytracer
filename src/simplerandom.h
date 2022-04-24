@@ -10,7 +10,6 @@
 namespace Raytracer {
 
     float random_float();
-    void random_seed(int seed);
 
 }
 

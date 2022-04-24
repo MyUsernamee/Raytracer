@@ -7,6 +7,7 @@
 
 #include <vector>
 #include <string>
+#include <thread>
 #include "objects/RaytracedObject.h"
 #include <png++/png.hpp>
 #include "simplerandom.h"
@@ -23,6 +24,7 @@ namespace Raytracer {
         ~World();
 
         Image render(int width, int height, int samples);
+        Image renderImage(int width, int height);
 
         void addObject(RaytracedObject *object);
 
@@ -47,10 +49,13 @@ namespace Raytracer {
 
         HitData intersect(Ray ray);
 
+        std::thread * queueSampleThread(int width, int height, Image *result);
+
         glm::vec3 trace(Ray ray, glm::vec3 color, glm::vec3 light, int depth);
         glm::vec3 trace(Ray ray, glm::vec3 color, glm::vec3 light, int depth, bool firstHit);
         glm::vec3 trace(HitData hit, glm::vec3 color, glm::vec3 light, int depth, bool firstHit);
         glm::vec3 trace(HitData hit, glm::vec3 color, glm::vec3 light, int depth);
+        void traceThread(int width, int height, Image *result);
         glm::vec3 calculateLighting(HitData hit);
 
         static glm::vec3 mapColor(glm::vec3 color);
@@ -60,6 +65,9 @@ namespace Raytracer {
         std::vector<RaytracedObject*> lights;
         glm::mat4 cameraMatrix;
         glm::vec4 cameraPosition;
+        std::vector<std::thread*> sampleThreads;
+
+
     };
 
 

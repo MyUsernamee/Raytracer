@@ -13,8 +13,7 @@ struct Image {
     int width;
     int height;
     glm::vec3** pixels;
-    glm::vec3** albedo;
-    glm::vec3** normal;
+
 
 };
 
