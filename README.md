@@ -1,6 +1,14 @@
 # C++ Raytracer
 A simple raytracer written in C++.
 
+## Features
+- [x] Mutlithreadding
+- [x] Completely written from scratch without any graphics libraries
+- [ ] MIS
+- [x] Next Event Estimation
+- [x] Demonstrates a deep understaning of programming structures, algorithms, debuggers, profilers, c++, CMAKE, and mathematics
+- [x] Runs on linux
+
 ## Renders
 
 Here is a simple render. It took about 365 seconds to render.
